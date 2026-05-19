@@ -1,0 +1,680 @@
+/* ========== SETTINGS MODAL STYLES ========== */
+.settings-modal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.settings-section {
+    background: rgba(0, 40, 80, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.25);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.settings-section-title {
+    color: #00ffff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 0;
+    text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+}
+
+.settings-desc {
+    color: #99ccff;
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.choose-flight-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: rgba(0, 100, 200, 0.2);
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 10px;
+    color: #00ffff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+}
+
+.choose-flight-btn svg {
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+}
+
+.choose-flight-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: rgba(0, 255, 255, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.25);
+}
+
+.selected-flight-info {
+    padding: 12px 16px;
+    background: rgba(0, 60, 120, 0.25);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.selected-label {
+    color: #99ccff;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.selected-value {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.selected-route {
+    color: #00ffff;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* ========== FLIGHT SELECTION OVERLAY ========== */
+.flight-selection-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 5, 15, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.flight-selection-container {
+    width: 800px;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: rgba(10, 20, 45, 0.95);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 30px;
+    overflow-y: auto;
+    box-shadow: 0 10px 50px rgba(0, 255, 255, 0.2);
+    animation: scaleUp 0.3s ease-out;
+}
+
+.flight-selection-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(0, 255, 255, 0.2);
+}
+
+.flight-selection-title {
+    color: #00ffff;
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+    text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+.flight-selection-close {
+    background: transparent;
+    border: none;
+    color: #88aadd;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.2s ease;
+}
+
+.flight-selection-close:hover {
+    color: #00ffff;
+    transform: rotate(90deg);
+}
+
+.selection-step-title {
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+
+.selection-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-btn {
+    padding: 8px 16px;
+    background: rgba(0, 100, 200, 0.2);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 8px;
+    color: #00ffff;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: rgba(0, 255, 255, 0.6);
+}
+
+/* Airport Search */
+.airport-search-box {
+    margin-bottom: 25px;
+    display: flex;
+    gap: 12px;
+}
+
+.airport-search-input {
+    flex: 1;
+    padding: 14px 18px;
+    background: rgba(0, 20, 40, 0.5);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.airport-search-input::placeholder {
+    color: rgba(0, 255, 255, 0.5);
+    text-transform: none;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.airport-search-input:focus {
+    border-color: rgba(0, 255, 255, 0.8);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
+
+.search-flight-btn {
+    padding: 14px 24px;
+    background: rgba(0, 100, 200, 0.3);
+    border: 2px solid rgba(0, 255, 255, 0.5);
+    border-radius: 10px;
+    color: #00ffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.search-flight-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: rgba(0, 255, 255, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.25);
+}
+
+.popular-airports-section {
+    margin-top: 20px;
+}
+
+.popular-title {
+    color: #00ffff;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 15px 0;
+    letter-spacing: 0.5px;
+}
+
+.loading-text {
+    color: #00ffff;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 30px 20px;
+    color: #99ccff;
+}
+
+.empty-state p {
+    margin: 0 0 10px 0;
+    font-size: 15px;
+}
+
+.empty-hint {
+    color: #6688aa;
+    font-size: 13px !important;
+    font-style: italic;
+}
+
+/* Airport List */
+.airport-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.airport-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 14px 16px;
+    background: rgba(0, 40, 80, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.airport-item:hover {
+    background: rgba(0, 255, 255, 0.1);
+    border-color: rgba(0, 255, 255, 0.5);
+    transform: translateX(5px);
+}
+
+.airport-code {
+    background: rgba(0, 255, 255, 0.2);
+    color: #00ffff;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    min-width: 60px;
+    text-align: center;
+}
+
+.airport-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.airport-name {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.airport-location {
+    color: #99ccff;
+    font-size: 13px;
+}
+
+/* Flight List */
+.flight-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.flight-item {
+    padding: 16px 18px;
+    background: rgba(0, 40, 80, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.flight-item:hover {
+    background: rgba(0, 255, 255, 0.1);
+    border-color: rgba(0, 255, 255, 0.5);
+    transform: scale(1.02);
+}
+
+.flight-main-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flight-number {
+    color: #00ffff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.flight-airline {
+    color: #99ccff;
+    font-size: 13px;
+}
+
+.flight-route-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.flight-location {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.location-code {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.location-name {
+    color: #99ccff;
+    font-size: 12px;
+}
+
+.flight-arrow {
+    color: #00ffff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.flight-status {
+    color: #99ccff;
+    font-size: 12px;
+    text-align: right;
+}
+
+/* Scrollbar Styling */
+.flight-selection-container::-webkit-scrollbar,
+.airport-list::-webkit-scrollbar,
+.flight-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.flight-selection-container::-webkit-scrollbar-track,
+.airport-list::-webkit-scrollbar-track,
+.flight-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.flight-selection-container::-webkit-scrollbar-thumb,
+.airport-list::-webkit-scrollbar-thumb,
+.flight-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+}
+
+.flight-selection-container::-webkit-scrollbar-thumb:hover,
+.airport-list::-webkit-scrollbar-thumb:hover,
+.flight-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 255, 0.5);
+}
+
+/* ========== LANGUAGE PICKER OVERLAY ========== */
+.lang-picker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 5, 15, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lang-picker-container {
+    width: 620px;
+    max-width: 95vw;
+    max-height: 85vh;
+    background: rgba(8, 18, 42, 0.97);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(0, 255, 255, 0.3);
+    border-radius: 18px;
+    padding: 28px 30px 24px;
+    overflow-y: auto;
+    box-shadow:
+        0 0 60px rgba(0, 255, 255, 0.12),
+        0 20px 60px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.lang-picker-container::-webkit-scrollbar {
+    width: 5px;
+}
+.lang-picker-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+.lang-picker-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 255, 0.25);
+    border-radius: 4px;
+}
+
+.lang-picker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 14px;
+    border-bottom: 1.5px solid rgba(0, 255, 255, 0.2);
+}
+
+.lang-picker-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #00ffff;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
+}
+
+.lang-picker-title svg {
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+}
+
+.lang-picker-close {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.lang-picker-close:hover {
+    border-color: rgba(0, 255, 255, 0.5);
+    color: #00ffff;
+    background: rgba(0, 255, 255, 0.08);
+}
+
+.lang-picker-subtitle {
+    color: rgba(150, 200, 255, 0.7);
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Language card grid */
+.lang-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.lang-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 18px 12px 14px;
+    background: rgba(0, 40, 90, 0.35);
+    border: 1.5px solid rgba(0, 255, 255, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #fff;
+    text-align: center;
+}
+
+.lang-card:hover {
+    background: rgba(0, 80, 160, 0.4);
+    border-color: rgba(0, 255, 255, 0.55);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.15);
+}
+
+.lang-card.selected {
+    background: rgba(0, 255, 255, 0.12);
+    border-color: rgba(0, 255, 255, 0.7);
+    box-shadow:
+        0 0 16px rgba(0, 255, 255, 0.2),
+        inset 0 0 12px rgba(0, 255, 255, 0.06);
+}
+
+.lang-card-flag {
+    font-size: 30px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
+
+.lang-card-name {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: rgba(200, 230, 255, 0.9);
+}
+
+.lang-card.selected .lang-card-name {
+    color: #00ffff;
+    text-shadow: 0 0 6px rgba(0, 255, 255, 0.4);
+}
+
+.lang-card-check {
+    position: absolute;
+    top: 7px;
+    right: 9px;
+    font-size: 11px;
+    color: #00ffff;
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(0, 255, 255, 0.8);
+}
+
+/* Settings — choose language button */
+.choose-lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: rgba(0, 60, 140, 0.2);
+    border: 2px solid rgba(100, 180, 255, 0.45);
+    border-radius: 10px;
+    color: #66ccff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    letter-spacing: 0.5px;
+    width: 100%;
+    text-align: left;
+}
+
+.choose-lang-btn svg {
+    filter: drop-shadow(0 0 8px rgba(100, 180, 255, 0.6));
+}
+
+.choose-lang-btn:hover {
+    background: rgba(0, 120, 255, 0.2);
+    border-color: rgba(100, 200, 255, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(100, 180, 255, 0.2);
+    color: #aaddff;
+}
+
+/* Selected language display in settings */
+.selected-lang-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    background: rgba(0, 60, 120, 0.25);
+    border: 1px solid rgba(100, 180, 255, 0.2);
+    border-radius: 8px;
+}
+
+.selected-lang-flag {
+    font-size: 26px;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.selected-lang-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.selected-lang-text .selected-label {
+    color: rgba(150, 200, 255, 0.7);
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.selected-lang-text .selected-value {
+    color: #aaddff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+@media (max-width: 600px) {
+    .lang-picker-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lang-picker-container {
+        padding: 20px 16px 18px;
+    }
+}

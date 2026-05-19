@@ -1,0 +1,125 @@
+/* ========== LUGGAGE MODAL STYLES ========== */
+.luggage-modal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.luggage-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.luggage-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 14px;
+}
+
+.luggage-bag-label {
+    color: #cfe6ff;
+    white-space: nowrap;
+}
+
+.luggage-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.luggage-status-symbol {
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(10, 20, 45, 0.35);
+}
+
+.luggage-status-symbol svg {
+    display: block;
+}
+
+.luggage-status.loaded .luggage-status-symbol {
+    border-color: rgba(0, 255, 122, 0.45);
+    color: #00ff7a;
+}
+
+.luggage-status.intransit .luggage-status-symbol {
+    border-color: rgba(255, 176, 32, 0.45);
+    color: #ffb020;
+}
+
+.luggage-status-text {
+    color: #fff;
+}
+
+.luggage-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    margin: 6px 0;
+}
+
+.luggage-section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.luggage-section-title {
+    color: #cfe6ff;
+    font-weight: 600;
+}
+
+.luggage-section-value {
+    color: #fff;
+    font-weight: 600;
+}
+
+.luggage-eta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.luggage-eta-label {
+    color: #cfe6ff;
+}
+
+.luggage-eta-value {
+    color: #fff;
+    font-weight: 600;
+}
+
+.luggage-actions {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.luggage-action-btn {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(10, 20, 45, 0.25);
+    color: #fff;
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    letter-spacing: 0.5px;
+}
+
+.luggage-action-btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 18px rgba(0, 255, 255, 0.12);
+}

@@ -1,0 +1,146 @@
+/* ========== HEALTH MODAL CONTENT SIZE ========== */
+.modal-content.health-modal-content {
+    width: 520px;
+    max-height: 90vh;
+    min-height: 320px;
+}
+
+/* ========== HEALTH MODAL TITLE ========== */
+.health-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 1px;
+}
+
+.health-title-icon {
+    color: #ff4d6d;
+    filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.7));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========== HEALTH MODAL BODY ========== */
+.health-modal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.health-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.health-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.health-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    flex: 0 0 8px;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.35);
+}
+
+.health-dot.ok {
+    background: #00ff7a;
+    box-shadow: 0 0 12px rgba(0, 255, 122, 0.45);
+}
+
+.health-dot.info {
+    background: #00ffff;
+}
+
+.health-dot.pulse {
+    background: #ff4d6d;
+    box-shadow: 0 0 12px rgba(255, 77, 109, 0.45);
+}
+
+.health-dot.warn {
+    background: #ffb020;
+    box-shadow: 0 0 12px rgba(255, 176, 32, 0.45);
+}
+
+.health-label {
+    color: #cfe6ff;
+}
+
+.health-value {
+    color: #fff;
+    font-weight: 600;
+}
+
+.health-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.12);
+    margin: 6px 0;
+}
+
+.health-suggestion {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.health-suggestion-title {
+    color: #cfe6ff;
+    font-weight: 600;
+}
+
+.health-suggestion-text {
+    color: #00ffff;
+}
+
+.health-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 2px;
+}
+
+.health-action-btn {
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 255, 255, 0.55);
+    background: rgba(10, 20, 45, 0.35);
+    color: #00ffff;
+    cursor: pointer;
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    letter-spacing: 0.5px;
+}
+
+.health-action-btn:hover {
+    transform: translateY(-1px);
+    border-color: rgba(0, 255, 255, 0.85);
+    box-shadow: 0 0 18px rgba(0, 255, 255, 0.25);
+}
+
+.health-action-btn.danger {
+    border-color: rgba(255, 77, 109, 0.65);
+    color: #ff4d6d;
+}
+
+.health-action-btn.danger:hover {
+    border-color: rgba(255, 77, 109, 0.9);
+    box-shadow: 0 0 18px rgba(255, 77, 109, 0.25);
+}
+
+@media (max-width: 600px) {
+    .modal-content.health-modal-content {
+        width: 94vw !important;
+        max-width: 94vw !important;
+        border-radius: 20px;
+    }
+}

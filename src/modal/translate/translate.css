@@ -1,0 +1,401 @@
+/* ========== TRANSLATE MODAL CONTENT SIZE ========== */
+.modal-content.translate-modal-content {
+    width: 550px;
+    max-width: 90vw;
+    max-height: 90vh;
+    min-height: auto;
+    padding: 18px 24px;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ========== TRANSLATE MODAL STYLES ========== */
+.translate-modal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Speak Button Header */
+.translate-header {
+    display: flex;
+    justify-content: center;
+}
+
+.translate-speak-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(0, 100, 200, 0.2);
+    border: 1.5px solid rgba(0, 255, 255, 0.5);
+    border-radius: 10px;
+    color: #00ffff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 12px rgba(0, 255, 255, 0.15);
+}
+
+.translate-speak-btn svg {
+    filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.6));
+}
+
+.translate-speak-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    border-color: rgba(0, 255, 255, 0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 255, 0.25);
+}
+
+.translate-speak-btn:active {
+    transform: scale(0.98);
+}
+
+.translate-speak-btn.active {
+    background: rgba(255, 50, 80, 0.2);
+    border-color: rgba(255, 77, 109, 0.6);
+    color: #ff4d6d;
+    animation: pulse-translate 1.5s infinite;
+}
+
+.translate-speak-btn.active svg {
+    filter: drop-shadow(0 0 8px rgba(255, 77, 109, 0.8));
+}
+
+@keyframes pulse-translate {
+    0%,
+    100% {
+        box-shadow: 0 4px 15px rgba(255, 77, 109, 0.2);
+    }
+    50% {
+        box-shadow: 0 6px 25px rgba(255, 77, 109, 0.4);
+    }
+}
+
+/* Conversation Display */
+.translate-conversation {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 14px;
+    background: rgba(0, 40, 80, 0.2);
+    border: 1px solid rgba(0, 255, 255, 0.15);
+    border-radius: 10px;
+}
+
+.translate-message-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.translate-label {
+    color: #99ccff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.translate-text-box {
+    position: relative;
+    padding: 10px 14px;
+    background: rgba(0, 20, 40, 0.5);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.translate-text-box.source {
+    border-left: 2.5px solid rgba(0, 255, 255, 0.5);
+}
+
+.translate-text-box.translation {
+    border-left: 2.5px solid rgba(100, 200, 255, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.translate-text {
+    color: #fff;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.translate-arrow {
+    color: #00ffff;
+    font-size: 18px;
+    text-align: center;
+    margin: 2px 0;
+    opacity: 0.7;
+}
+
+.audio-playback-btn {
+    background: rgba(0, 255, 255, 0.15);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.audio-icon {
+    font-size: 16px;
+}
+
+.audio-playback-btn:hover {
+    background: rgba(0, 255, 255, 0.25);
+    border-color: rgba(0, 255, 255, 0.5);
+    transform: scale(1.05);
+}
+
+.translate-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(0, 255, 255, 0.2);
+    margin: 2px 0;
+}
+
+/* Language Selection */
+.translate-language-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background: rgba(0, 60, 120, 0.2);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.language-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.language-tag {
+    padding: 6px 12px;
+    background: rgba(0, 100, 200, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.language-tag.source {
+    background: rgba(0, 255, 255, 0.15);
+    border-color: rgba(0, 255, 255, 0.4);
+}
+
+.language-tag.target {
+    background: rgba(100, 200, 255, 0.15);
+    border-color: rgba(100, 200, 255, 0.4);
+}
+
+.language-arrow-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    transition: transform 0.2s ease;
+}
+
+.language-arrow-btn:hover {
+    transform: scale(1.1);
+}
+
+.language-arrow {
+    color: #00ffff;
+    font-size: 16px;
+    font-weight: 700;
+    display: block;
+}
+
+.auto-detect-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 6px 10px;
+    background: rgba(0, 20, 40, 0.4);
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+}
+
+.auto-detect-toggle:hover {
+    background: rgba(0, 40, 80, 0.4);
+    border-color: rgba(0, 255, 255, 0.3);
+}
+
+.auto-detect-toggle input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    accent-color: #00ffff;
+}
+
+.toggle-label {
+    color: #99ccff;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+/* Features Section */
+.translate-features {
+    background: rgba(0, 100, 200, 0.1);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.features-title {
+    color: #00ffff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.features-list {
+    color: #99ccff;
+    font-size: 12px;
+    padding-left: 16px;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.features-list li {
+    margin-bottom: 2px;
+}
+
+.inspired-note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(0, 255, 255, 0.15);
+    margin-top: 2px;
+}
+
+.inspired-label {
+    color: #99ccff;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.inspired-value {
+    color: #00ffff;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* Select Styling */
+.language-select {
+    padding: 6px 12px;
+    background: rgba(0, 100, 200, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    border-radius: 6px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-align: center;
+}
+
+.language-select option {
+    background: #0a142d;
+    color: #fff;
+}
+
+.language-select.source {
+    background: rgba(0, 255, 255, 0.15);
+    border-color: rgba(0, 255, 255, 0.4);
+}
+
+.language-select.target {
+    background: rgba(100, 200, 255, 0.15);
+    border-color: rgba(100, 200, 255, 0.4);
+}
+
+/* Auto-detect mode source display */
+div.language-select.source.auto-mode {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: default;
+    opacity: 0.85;
+    background: rgba(0, 255, 200, 0.1);
+    border-color: rgba(0, 255, 180, 0.35);
+    color: rgba(0, 255, 200, 0.9);
+    font-style: italic;
+    min-width: 110px;
+    justify-content: center;
+}
+
+div.language-select.source.auto-mode .detected-indicator {
+    color: #00ffb3;
+    font-size: 10px;
+    font-style: normal;
+    animation: pulse-live 2s infinite;
+}
+
+div.language-select.source.auto-mode .auto-detect-placeholder {
+    letter-spacing: 0.3px;
+    font-size: 13px;
+}
+
+.language-arrow-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 650px) {
+    .translate-conversation {
+        padding: 12px;
+    }
+
+    .language-display {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .translate-language-section {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .modal-content.translate-modal-content {
+        width: 94vw !important;
+        max-width: 94vw !important;
+        border-radius: 20px;
+    }
+}

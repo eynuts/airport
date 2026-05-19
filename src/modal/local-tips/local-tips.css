@@ -1,0 +1,61 @@
+/* ========== LOCAL TIPS MODAL ========== */
+.local-tips-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.local-tips-intro {
+    color: #99ccff;
+    font-size: 14px;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.local-tips-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.local-tip-card {
+    background: rgba(0, 40, 80, 0.3);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.local-tip-card:hover {
+    background: rgba(0, 60, 120, 0.35);
+    border-color: rgba(0, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.local-tip-icon {
+    font-size: 22px;
+}
+
+.local-tip-title {
+    color: #00ffff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.local-tip-desc {
+    color: #99ccff;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+@media (max-width: 480px) {
+    .local-tips-grid {
+        grid-template-columns: 1fr;
+    }
+}
