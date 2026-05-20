@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Mic } from "lucide-react";
 import "./translate.css";
 import { SUPPORTED_LANGUAGES } from "../settings/settings";
+import { API_BASE_URL, WS_BASE_URL } from "../../config";
 
 export default function TranslateModal({ targetLang, setTargetLang, t }) {
   const [isTranslating, setIsTranslating] = useState(false);
@@ -51,7 +52,7 @@ export default function TranslateModal({ targetLang, setTargetLang, t }) {
         prompt = `Detect the source language of the following text, then translate it to ${target}.\nText: "${text}"\nReply ONLY in this exact format, nothing else:\nDETECTED: [detected language name]\nTRANSLATION: [translated text only]`;
       }
 
-      const response = await fetch("http://localhost:5000/api/generate", {
+      const response = await fetch(`${API_BASE_URL}/api/generate`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
@@ -128,12 +129,22 @@ export default function TranslateModal({ targetLang, setTargetLang, t }) {
     setDetectedLang(null);
 
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      // Open mic AND WebSocket in parallel; wait until BOTH are ready
+      // so no audio is dropped while the socket is still handshaking.
+      const [stream, socket] = await Promise.all([
+        navigator.mediaDevices.getUserMedia({ audio: true }),
+        new Promise((resolve, reject) => {
+          const ws = new WebSocket(`${WS_BASE_URL}/stream`);
+          ws.onopen = () => resolve(ws);
+          ws.onerror = () =>
+            reject(new Error("Could not connect to speech server."));
+        }),
+      ]);
       translateStreamRef.current = stream;
-
-      const socket = new WebSocket("ws://localhost:5000/stream");
       translateSocketRef.current = socket;
 
+      // Handlers set after open — socket is guaranteed OPEN here
+      socket.onerror = () => stopTranslating();
       socket.onmessage = async (message) => {
         const text =
           message.data instanceof Blob
@@ -158,8 +169,6 @@ export default function TranslateModal({ targetLang, setTargetLang, t }) {
           }
         }
       };
-
-      socket.onerror = () => stopTranslating();
 
       const audioContext = new (
         window.AudioContext || window.webkitAudioContext
@@ -194,9 +203,7 @@ export default function TranslateModal({ targetLang, setTargetLang, t }) {
       utterance.rate = 1;
       utterance.pitch = 1;
       utterance.volume = 1;
-      const langConfig = SUPPORTED_LANGUAGES.find(
-        (l) => l.name === targetLang,
-      );
+      const langConfig = SUPPORTED_LANGUAGES.find((l) => l.name === targetLang);
       utterance.lang = langConfig ? langConfig.code : "en-US";
       window.speechSynthesis.speak(utterance);
     }
@@ -218,9 +225,7 @@ export default function TranslateModal({ targetLang, setTargetLang, t }) {
           onClick={isTranslating ? stopTranslating : startTranslating}
         >
           <Mic size={20} strokeWidth={2.5} />
-          <span>
-            {isTranslating ? t("STOP_RECORDING") : t("SPEAK_BUTTON")}
-          </span>
+          <span>{isTranslating ? t("STOP_RECORDING") : t("SPEAK_BUTTON")}</span>
         </button>
       </div>
 

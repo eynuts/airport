@@ -15,6 +15,7 @@ import {
 import "./home.css";
 import Sphere3D from "./Sphere3D";
 import { UI_TRANSLATIONS } from "./translations";
+import { API_BASE_URL, WS_BASE_URL } from "../config";
 import FlightModal from "../modal/flight/flight";
 import WeatherModal from "../modal/weather/weather";
 import LuggageModal from "../modal/luggage/luggage";
@@ -201,7 +202,7 @@ export default function Home() {
           context += `\nWeather at ${weatherData.location || weatherData.airportCode}: ${Math.round(weatherData.temperature_2m)}°C.`;
         }
 
-        const response = await fetch("http://localhost:5000/api/generate", {
+        const response = await fetch(`${API_BASE_URL}/api/generate`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -290,17 +291,22 @@ export default function Home() {
     setIsAwake(true);
 
     try {
-      // Start mic and WebSocket connection IN PARALLEL — no waiting on each other
-      const [stream] = await Promise.all([
+      // Open mic AND WebSocket in parallel; wait until BOTH are fully ready
+      // before wiring the audio pipeline so zero audio is dropped.
+      const [stream, socket] = await Promise.all([
         navigator.mediaDevices.getUserMedia({ audio: true }),
-        new Promise((resolve) => resolve()), // placeholder to keep Promise.all shape
+        new Promise((resolve, reject) => {
+          const ws = new WebSocket(`${WS_BASE_URL}/stream`);
+          ws.onopen = () => resolve(ws);
+          ws.onerror = () =>
+            reject(new Error("Could not connect to speech server."));
+        }),
       ]);
       streamRef.current = stream;
-
-      // WebSocket proxy (auth header added by backend)
-      const socket = new WebSocket("ws://localhost:5000/stream");
       socketRef.current = socket;
 
+      // Handlers set after open — socket is guaranteed OPEN here
+      socket.onerror = () => stopListening();
       socket.onmessage = async (message) => {
         const text =
           message.data instanceof Blob
@@ -335,8 +341,6 @@ export default function Home() {
           console.log("AssemblyAI session started:", res.id);
         }
       };
-
-      socket.onerror = () => stopListening();
 
       // Audio pipeline — lean, only sends PCM data
       const audioContext = new (

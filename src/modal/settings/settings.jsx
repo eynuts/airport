@@ -2,6 +2,7 @@ import { useState, useCallback } from "react";
 import { Plane, Globe, X } from "lucide-react";
 import "./settings.css";
 import { popularAirports } from "../navigation/navigation";
+import { API_BASE_URL } from "../../config";
 
 export const SUPPORTED_LANGUAGES = [
   { name: "English", code: "en-US", flag: "🇬🇧" },
@@ -41,7 +42,7 @@ export default function SettingsModal({
       setFlights([]);
       try {
         const response = await fetch(
-          `http://localhost:5000/api/flights/search?airport_iata=${code}`,
+          `${API_BASE_URL}/api/flights/search?airport_iata=${code}`,
         );
 
         if (!response.ok) {
@@ -122,8 +123,7 @@ export default function SettingsModal({
                 {selectedFlight.flight.iata || selectedFlight.flight.number}
               </div>
               <div className="selected-route">
-                {selectedFlight.departure.iata} →{" "}
-                {selectedFlight.arrival.iata}
+                {selectedFlight.departure.iata} → {selectedFlight.arrival.iata}
               </div>
             </div>
           )}
@@ -180,9 +180,7 @@ export default function SettingsModal({
 
             {flights.length === 0 && !loadingFlights ? (
               <div className="airport-selection">
-                <h3 className="selection-step-title">
-                  Step 1: Choose Airport
-                </h3>
+                <h3 className="selection-step-title">Step 1: Choose Airport</h3>
 
                 <div className="airport-search-box">
                   <input
@@ -220,9 +218,7 @@ export default function SettingsModal({
                         <div className="airport-code">{airport.code}</div>
                         <div className="airport-info">
                           <div className="airport-name">{airport.name}</div>
-                          <div className="airport-location">
-                            {airport.city}
-                          </div>
+                          <div className="airport-location">{airport.city}</div>
                         </div>
                       </div>
                     ))}
