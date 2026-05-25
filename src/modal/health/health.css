@@ -137,6 +137,43 @@
     box-shadow: 0 0 18px rgba(255, 77, 109, 0.25);
 }
 
+/* ── Bluetooth connection banner ── */
+.health-bt-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #99bbcc;
+  background: rgba(0, 20, 50, 0.5);
+  border: 1px solid rgba(0, 255, 255, 0.15);
+}
+
+.health-bt-banner.connected {
+  color: #aaddff;
+  background: rgba(0, 40, 80, 0.5);
+  border-color: rgba(0, 200, 255, 0.35);
+}
+
+.health-bt-banner strong {
+  color: #00ffff;
+}
+
+/* Live HR number pulse */
+.health-hr-live {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ff4d6d;
+  text-shadow: 0 0 10px rgba(255, 77, 109, 0.6);
+  animation: hr-beat 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes hr-beat {
+  from { opacity: 1; }
+  to   { opacity: 0.7; }
+}
+
 @media (max-width: 600px) {
     .modal-content.health-modal-content {
         width: 94vw !important;

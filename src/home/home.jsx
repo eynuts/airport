@@ -19,14 +19,13 @@ import { API_BASE_URL, WS_BASE_URL } from "../config";
 import FlightModal from "../modal/flight/flight";
 import WeatherModal from "../modal/weather/weather";
 import LuggageModal from "../modal/luggage/luggage";
-import NavigationModal, {
-  getFlightDistance,
-  getAirportCoordinates,
-} from "../modal/navigation/navigation";
+import NavigationModal from "../modal/navigation/navigation";
+import { getAirportCoordinates } from "../data/airports";
 import SettingsModal from "../modal/settings/settings";
 import TranslateModal from "../modal/translate/translate";
 import LocalTipsModal from "../modal/local-tips/local-tips";
 import HealthModal from "../modal/health/health";
+import { useBluetooth } from "../hooks/useBluetooth";
 
 const GlassCard = ({ icon, children, isCenter = false, onClick }) => {
   const Tag = onClick ? "button" : "div";
@@ -72,8 +71,14 @@ export default function Home() {
       UI_TRANSLATIONS[preferredLanguage] || UI_TRANSLATIONS["English"];
     return dict[key] ?? UI_TRANSLATIONS["English"][key] ?? key;
   };
+  // AI thinking state
+  const [isThinking, setIsThinking] = useState(false);
+
   // Flight selection state
   const [selectedFlight, setSelectedFlight] = useState(null);
+
+  // Bluetooth smartwatch
+  const bluetooth = useBluetooth();
 
   // Weather state
   const [weatherData, setWeatherData] = useState(null);
@@ -166,6 +171,7 @@ export default function Home() {
   const callGemini = useCallback(
     async (text) => {
       if (!text.trim()) return;
+      setIsThinking(true);
       try {
         // Build live context so the AI knows current flight, nav & weather
         const { hours, minutes, period, formattedDate } = getPhilippineTime();
@@ -213,6 +219,8 @@ export default function Home() {
         showSubtitle(data.text || "No response");
       } catch (error) {
         showSubtitle("Error: " + error.message);
+      } finally {
+        setIsThinking(false);
       }
     },
     [showSubtitle, selectedFlight, weatherData],
@@ -459,7 +467,7 @@ export default function Home() {
       case "HEALTH STATS":
         return t("MODAL_HEALTH");
       case "LUGGAGE":
-        return t("MODAL_LUGGAGE");
+        return "CARRYBOT";
       case "FLIGHT":
         return t("MODAL_FLIGHT");
       case "WEATHER":
@@ -518,12 +526,13 @@ export default function Home() {
             onLanguageSelect={handleLanguageSelect}
             t={t}
             showSubtitle={showSubtitle}
+            bluetooth={bluetooth}
           />
         );
       case "LOCAL TIPS":
-        return <LocalTipsModal t={t} />;
+        return <LocalTipsModal selectedFlight={selectedFlight} t={t} />;
       case "HEALTH STATS":
-        return <HealthModal t={t} showSubtitle={showSubtitle} />;
+        return <HealthModal t={t} showSubtitle={showSubtitle} bluetooth={bluetooth} />;
       default:
         return <p>Loading details...</p>;
     }
@@ -531,9 +540,14 @@ export default function Home() {
 
   return (
     <div className="home-container">
+      {/* Background decorative layers */}
+      <div className="bg-corner-tl" aria-hidden="true" />
+      <div className="bg-corner-br" aria-hidden="true" />
+
       <div className="center-sphere">
         <Sphere3D
           isSpeaking={isSpeaking}
+          isThinking={isThinking}
           micVolume={micVolume}
           onSphereClick={() =>
             showSubtitle("Hi, I'm Alvi, how can I assist you?")
@@ -601,9 +615,9 @@ export default function Home() {
             icon={<Luggage size={36} strokeWidth={1.5} />}
             onClick={() => setActiveModal("LUGGAGE")}
           >
-            <div className="card-title">{t("LUGGAGE")}</div>
-            <div className="card-sub">{t("WEIGHT")}</div>
-            <div className="card-value">18KG</div>
+            <div className="card-title">CARRYBOT</div>
+            <div className="card-sub">No bot connected</div>
+            <div className="card-value" style={{ fontSize: "14px", color: "#6699bb" }}>── ──</div>
           </GlassCard>
         </div>
 
@@ -623,31 +637,8 @@ export default function Home() {
             onClick={() => setActiveModal("NAVIGATION")}
           >
             <div className="card-title">{t("NAVIGATION")}</div>
-            {(() => {
-              const flightInfo = getFlightDistance(selectedFlight);
-              if (flightInfo) {
-                return (
-                  <>
-                    <div className="card-sub" style={{ marginTop: "5px" }}>
-                      {flightInfo.arrival}
-                    </div>
-                    <div className="card-value" style={{ fontSize: "20px" }}>
-                      {flightInfo.distance}KM
-                    </div>
-                  </>
-                );
-              }
-              return (
-                <>
-                  <div className="card-sub" style={{ marginTop: "5px" }}>
-                    {t("NO_FLIGHT")}
-                  </div>
-                  <div className="card-value" style={{ fontSize: "20px" }}>
-                    --KM
-                  </div>
-                </>
-              );
-            })()}
+            <div className="card-sub" style={{ marginTop: "5px" }}>Floor Plan</div>
+            <div className="card-value" style={{ fontSize: "16px" }}>G · 2 · 3</div>
           </GlassCard>
         </div>
 
@@ -678,17 +669,12 @@ export default function Home() {
             onClick={() => setActiveModal("HEALTH STATS")}
           >
             <div className="card-title">{t("HEALTH_STATS")}</div>
-            <div
-              className="card-value"
-              style={{
-                fontSize: "22px",
-                marginTop: "5px",
-                marginBottom: "5px",
-              }}
-            >
-              HR 72
+            <div className="card-value" style={{ fontSize: "22px", marginTop: "5px", marginBottom: "5px" }}>
+              HR {bluetooth.status === "connected" && bluetooth.heartRate != null ? bluetooth.heartRate : "–"}
             </div>
-            <div className="card-sub">{t("HEALTH_OK")}</div>
+            <div className="card-sub">
+              {bluetooth.status === "connected" ? `🔵 ${bluetooth.device?.name}` : t("HEALTH_OK")}
+            </div>
           </GlassCard>
         </div>
       </div>
@@ -734,7 +720,7 @@ export default function Home() {
                 </span>
               ) : activeModal === "LUGGAGE" ? (
                 <span className="luggage-title-icon">
-                  <Luggage size={18} strokeWidth={1.8} />
+                  🤖
                 </span>
               ) : null}
               {getModalTitle()}

@@ -2,24 +2,96 @@
 .home-container {
     width: 100%;
     height: 100%;
-    background: radial-gradient(
-        circle at 50% 50%,
-        rgba(0, 50, 100, 0.1) 0%,
-        rgba(5, 10, 25, 1) 100%
-    );
-    background-image:
-        radial-gradient(
-            circle at 50% 50%,
-            rgba(0, 50, 100, 0.1) 0%,
-            rgba(5, 10, 25, 1) 100%
-        ),
-        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background:
+        /* Soft top-center light source — like a skylight */
+        radial-gradient(ellipse 90% 55% at 50% 0%,   rgba(30, 100, 200, 0.35) 0%, transparent 65%),
+        /* Gentle left accent */
+        radial-gradient(ellipse 60% 50% at 0%   55%,  rgba(0,  120, 220, 0.18) 0%, transparent 60%),
+        /* Soft right accent */
+        radial-gradient(ellipse 55% 45% at 100% 45%,  rgba(80,  60, 180, 0.18) 0%, transparent 60%),
+        /* Warm bottom glow so it doesn't feel like a void */
+        radial-gradient(ellipse 70% 40% at 50% 100%, rgba(20,  60, 140, 0.25) 0%, transparent 60%),
+        /* Base — dark navy, not pitch black */
+        linear-gradient(175deg, #060d20 0%, #080f28 45%, #060b1e 100%);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
+
+/* ── Soft animated glow layer ── */
+.home-container::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+        radial-gradient(ellipse 50% 40% at 25% 65%, rgba(0, 160, 255, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 45% 35% at 70% 25%, rgba(100, 80, 255, 0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 55% 30% at 50% 90%, rgba(0,  100, 200, 0.05) 0%, transparent 70%);
+    animation: aurora-drift 22s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes aurora-drift {
+    0%   { transform: translate(0,    0)    scale(1);    opacity: 0.8; }
+    33%  { transform: translate(1.5%, 1%)   scale(1.03); opacity: 1;   }
+    66%  { transform: translate(-1%,  1.5%) scale(0.98); opacity: 0.85;}
+    100% { transform: translate(0.5%, -1%)  scale(1.02); opacity: 0.9; }
+}
+
+/* ── Subtle star-field (tiny, sparse, not blocky) ── */
+.home-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image:
+        radial-gradient(circle, rgba(180, 220, 255, 0.55) 1px, transparent 1px),
+        radial-gradient(circle, rgba(180, 220, 255, 0.35) 1px, transparent 1px);
+    background-size: 120px 120px, 80px 80px;
+    background-position: 0 0, 40px 40px;
+    mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 100%);
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+/* ── Corner accent glows — softer and warmer ── */
+.bg-corner-tl,
+.bg-corner-br {
+    position: absolute;
+    z-index: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(100px);
+}
+
+.bg-corner-tl {
+    width: 500px;
+    height: 500px;
+    top: -160px;
+    left: -160px;
+    background: radial-gradient(circle, rgba(40, 140, 255, 0.12) 0%, transparent 70%);
+    animation: corner-breathe 14s ease-in-out infinite alternate;
+}
+
+.bg-corner-br {
+    width: 560px;
+    height: 560px;
+    bottom: -180px;
+    right: -180px;
+    background: radial-gradient(circle, rgba(80, 60, 200, 0.12) 0%, transparent 70%);
+    animation: corner-breathe 18s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes corner-breathe {
+    0%   { opacity: 0.5; transform: scale(1);    }
+    100% { opacity: 0.9; transform: scale(1.12); }
+}
+
+
 
 /* Center Sphere Background */
 .center-sphere {
@@ -28,7 +100,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 0;
+    z-index: 2;
     overflow: hidden;
 }
 
@@ -281,12 +353,14 @@ button.glass-card:focus-visible {
         overflow-y: auto;
         min-height: 100vh;
         height: auto;
-        background: radial-gradient(
-            circle at 50% 30%,
-            rgba(0, 50, 100, 0.2) 0%,
-            rgba(5, 10, 25, 1) 100%
-        );
+        background:
+            radial-gradient(ellipse 90% 50% at 50% 0%,   rgba(30, 100, 200, 0.3) 0%, transparent 65%),
+            radial-gradient(ellipse 60% 40% at 0%   55%,  rgba(0,  120, 220, 0.15) 0%, transparent 60%),
+            linear-gradient(175deg, #060d20 0%, #080f28 50%, #060b1e 100%);
     }
+
+    .bg-corner-tl { width: 260px; height: 260px; top: -80px; left: -80px; }
+    .bg-corner-br { width: 300px; height: 300px; bottom: -100px; right: -100px; }
 
     /* Center sphere adjustments for mobile */
     .center-sphere {

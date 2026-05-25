@@ -1,212 +1,374 @@
-/* ========== NAVIGATION MODAL CONTENT ========== */
+/* ═══════════════════════════════════════════════════════════════════════════
+   NAVIGATION MODAL
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Modal shell ─────────────────────────────────────────────────────────── */
 .modal-content.navigation-modal-content {
-    width: 550px;
-    max-width: 90vw;
-    max-height: 90vh;
-    min-height: auto;
-    padding: 18px 24px;
-    overflow-y: hidden;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  width: min(820px, 92vw) !important;
+  max-width: 92vw !important;
+  height: min(86vh, 720px);
+  max-height: 86vh;
+  padding: 14px 14px 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 6px;
+  overflow: hidden;
 }
 
-/* ========== NAVIGATION MODAL ========== */
-.navigation-modal {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.modal-content.navigation-modal-content .modal-title {
+  flex-shrink: 0;
 }
 
-.navigation-no-flight,
-.navigation-no-data {
-    text-align: center;
-    padding: 30px 20px;
-    color: #99ccff;
+.modal-content.navigation-modal-content .modal-body {
+  flex: 1 !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
 }
 
-.navigation-no-flight p,
-.navigation-no-data p {
-    margin: 0 0 8px 0;
-    font-size: 14px;
-    font-weight: 600;
-    color: #fff;
+/* ── Inner wrapper ───────────────────────────────────────────────────────── */
+.nav-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
-.navigation-hint {
-    color: #6688aa;
-    font-size: 12px;
+/* ── Floor tabs ─────────────────────────────────────────────────────────── */
+.nav-floor-tabs {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
-.navigation-header {
-    background: rgba(0, 40, 80, 0.3);
-    border: 1px solid rgba(0, 255, 255, 0.25);
-    border-radius: 10px;
-    padding: 14px 16px;
-    text-align: center;
+.nav-floor-tab {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 255, 255, 0.18);
+  background: rgba(0, 25, 55, 0.5);
+  color: #7aadcc;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
 }
 
-.navigation-route {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 6px;
+.nav-floor-tab:hover {
+  background: rgba(0, 55, 110, 0.55);
+  border-color: rgba(0, 255, 255, 0.38);
+  color: #cceeff;
 }
 
-.navigation-city {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+.nav-floor-tab.active {
+  background: rgba(0, 190, 255, 0.13);
+  border-color: rgba(0, 255, 255, 0.65);
+  color: #00ffff;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.18);
 }
 
-.navigation-arrow {
-    color: #00ffff;
-    font-size: 20px;
-    font-weight: 600;
+.nav-floor-badge {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(0, 255, 255, 0.12);
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  color: #00ffff;
+  flex-shrink: 0;
 }
 
-.navigation-codes {
-    color: #99ccff;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
+.nav-floor-tab.active .nav-floor-badge {
+  background: rgba(0, 255, 255, 0.28);
+  border-color: #00ffff;
 }
 
-.navigation-section {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+/* ── Map wrapper ─────────────────────────────────────────────────────────── */
+.nav-map-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 255, 255, 0.18);
+  background: #060e1c;
 }
 
-.navigation-card {
-    background: rgba(0, 40, 80, 0.3);
-    border: 1px solid rgba(0, 255, 255, 0.25);
-    border-radius: 8px;
-    padding: 12px 14px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    transition: all 0.3s ease;
+.nav-map-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
-.navigation-card.full-width {
-    grid-column: 1 / -1;
+/* ── GPS status pill — top-left overlay ─────────────────────────────────── */
+.nav-gps-overlay {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 20;
+  border: 1px solid rgba(0, 255, 100, 0.35);
+  background: rgba(0, 18, 10, 0.72);
+  color: #55ee99;
+  pointer-events: none;
 }
 
-.navigation-card:hover {
-    background: rgba(0, 60, 120, 0.3);
-    border-color: rgba(0, 255, 255, 0.4);
-    transform: translateY(-1px);
+.nav-gps-overlay.denied,
+.nav-gps-overlay.unsupported,
+.nav-gps-overlay.error {
+  border-color: rgba(255, 80, 80, 0.4);
+  background: rgba(30, 0, 0, 0.72);
+  color: #ff7777;
 }
 
-.navigation-icon {
-    font-size: 20px;
-    flex-shrink: 0;
-    filter: drop-shadow(0 0 6px rgba(0, 255, 255, 0.4));
+.nav-gps-overlay.idle {
+  border-color: rgba(255, 200, 0, 0.35);
+  background: rgba(20, 14, 0, 0.72);
+  color: #ffcc44;
 }
 
-.navigation-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+.nav-gps-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: nav-blink 1.3s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
-.navigation-label {
-    color: #99ccff;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.nav-gps-overlay.denied .nav-gps-dot,
+.nav-gps-overlay.unsupported .nav-gps-dot,
+.nav-gps-overlay.error .nav-gps-dot {
+  animation: none;
 }
 
-.navigation-value {
-    color: #fff;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+@keyframes nav-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
 }
 
-.navigation-time {
-    color: #00ffff;
-    font-size: 12px;
-    font-weight: 500;
-    margin-top: 2px;
+/* ── North arrow — top-right overlay ────────────────────────────────────── */
+.nav-north {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: rgba(0, 8, 22, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 255, 255, 0.22);
+  border-radius: 6px;
+  padding: 5px 7px;
+  pointer-events: none;
+  z-index: 15;
 }
 
-.navigation-status {
-    background: rgba(0, 40, 80, 0.3);
-    border: 1px solid rgba(0, 255, 255, 0.25);
-    border-radius: 8px;
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+.nav-north span {
+  font-size: 9px;
+  font-weight: 700;
+  color: #00ffff;
+  letter-spacing: 0.5px;
 }
 
-.navigation-status-label {
-    color: #99ccff;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
+/* ── Location indicator ──────────────────────────────────────────────────── */
+.nav-indicator {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  /* Offset so the TIP of the pin (bottom-center) sits on the coordinate */
+  transform: translate(-50%, -100%);
 }
 
-.navigation-status-badge {
-    padding: 6px 12px;
-    border-radius: 16px;
+/* Map pin SVG */
+.nav-pin {
+  filter: drop-shadow(0 2px 6px rgba(0, 200, 255, 0.7))
+          drop-shadow(0 0 12px rgba(0, 180, 255, 0.4));
+  animation: pin-bounce 2s ease-in-out infinite;
+  display: block;
+}
+
+@keyframes pin-bounce {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-4px); }
+}
+
+/* ── Raw GPS info panel ──────────────────────────────────────────────────── */
+.nav-gps-panel {
+  position: absolute;
+  top: 42px;
+  left: 10px;
+  background: rgba(0, 10, 28, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 10px 14px;
+  z-index: 25;
+  min-width: 200px;
+  pointer-events: none;
+}
+
+.nav-gps-panel-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 5px;
+}
+
+.nav-gps-panel-label {
+  font-size: 10px;
+  color: #6699bb;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.nav-gps-panel-val {
+  font-size: 11px;
+  color: #00ffff;
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.nav-gps-panel-hint {
+  font-size: 9px;
+  color: #445566;
+  margin-top: 6px;
+  border-top: 1px solid rgba(0,255,255,0.1);
+  padding-top: 5px;
+}
+
+/* ── Bottom bar ──────────────────────────────────────────────────────────── */
+.nav-bottom-bar {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.nav-you-overlay-inline {
+  font-size: 10px;
+  font-weight: 600;
+  color: #88bbdd;
+  letter-spacing: 0.3px;
+  background: rgba(0, 10, 25, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(0, 255, 255, 0.15);
+  border-radius: 6px;
+  padding: 4px 9px;
+}
+
+.nav-set-entrance-btn {
+  pointer-events: auto;
+  padding: 5px 11px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 255, 255, 0.35);
+  background: rgba(0, 20, 50, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #99ddff;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+
+.nav-set-entrance-btn:hover {
+  background: rgba(0, 60, 120, 0.85);
+  border-color: rgba(0, 255, 255, 0.6);
+  color: #00ffff;
+}
+
+.nav-set-entrance-btn.active {
+  background: rgba(0, 180, 255, 0.2);
+  border-color: rgba(0, 255, 255, 0.8);
+  color: #00ffff;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+/* ── Calibration mode — crosshair cursor + hint ──────────────────────────── */
+.nav-map-wrap.nav-calibrating {
+  cursor: crosshair;
+}
+
+.nav-calibrate-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 10, 30, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #00ffff;
+  text-align: center;
+  pointer-events: none;
+  z-index: 30;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+  animation: nav-hint-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes nav-hint-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+@media (max-width: 540px) {
+  .modal-content.navigation-modal-content {
+    width: 98vw !important;
+    height: 92vh;
+    padding: 10px 8px 8px !important;
+  }
+
+  .nav-floor-tab {
+    padding: 6px 4px;
     font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.navigation-status-badge.scheduled {
-    background: rgba(0, 150, 255, 0.2);
-    border: 1px solid rgba(0, 150, 255, 0.5);
-    color: #66bbff;
-}
-
-.navigation-status-badge.active {
-    background: rgba(0, 255, 100, 0.2);
-    border: 1px solid rgba(0, 255, 100, 0.5);
-    color: #00ff7a;
-}
-
-.navigation-status-badge.landed {
-    background: rgba(100, 255, 100, 0.2);
-    border: 1px solid rgba(100, 255, 100, 0.5);
-    color: #7fffaa;
-}
-
-.navigation-status-badge.cancelled {
-    background: rgba(255, 50, 50, 0.2);
-    border: 1px solid rgba(255, 50, 50, 0.5);
-    color: #ff6666;
-}
-
-.navigation-status-badge.delayed {
-    background: rgba(255, 180, 0, 0.2);
-    border: 1px solid rgba(255, 180, 0, 0.5);
-    color: #ffcc00;
-}
-
-/* Responsive Navigation */
-@media (max-width: 650px) {
-    .navigation-section {
-        grid-template-columns: 1fr;
-    }
-
-    .navigation-city {
-        font-size: 16px;
-    }
-
-    .navigation-arrow {
-        font-size: 18px;
-    }
+    gap: 4px;
+  }
 }

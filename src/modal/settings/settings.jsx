@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { Plane, Globe, X } from "lucide-react";
 import "./settings.css";
-import { popularAirports } from "../navigation/navigation";
+import { popularAirports } from "../../data/airports";
 import { API_BASE_URL } from "../../config";
 
 export const SUPPORTED_LANGUAGES = [
@@ -25,6 +25,7 @@ export default function SettingsModal({
   onLanguageSelect,
   t,
   showSubtitle,
+  bluetooth,
 }) {
   const [showFlightSelection, setShowFlightSelection] = useState(false);
   const [showLanguagePicker, setShowLanguagePicker] = useState(false);
@@ -151,7 +152,62 @@ export default function SettingsModal({
           )}
         </div>
 
-        {/* System Preferences Section */}
+        {/* Smartwatch / Bluetooth Section */}
+        <div className="settings-section">
+          <h3 className="settings-section-title">⌚ Smartwatch</h3>
+
+          {bluetooth.status === "unsupported" ? (
+            <p className="settings-desc" style={{ color: "#ff8888" }}>
+              Web Bluetooth is not supported in this browser. Please use Chrome or Edge on Android/desktop.
+            </p>
+          ) : bluetooth.status === "connected" ? (
+            <>
+              <div className="bt-device-card">
+                <div className="bt-device-icon">🔵</div>
+                <div className="bt-device-info">
+                  <div className="bt-device-name">{bluetooth.device?.name ?? "Smartwatch"}</div>
+                  <div className="bt-device-status connected">Connected</div>
+                </div>
+                {bluetooth.battery != null && (
+                  <div className="bt-battery">
+                    🔋 {bluetooth.battery}%
+                  </div>
+                )}
+              </div>
+              <div className="bt-live-row">
+                <span className="bt-live-label">❤️ Heart Rate</span>
+                <span className="bt-live-value">
+                  {bluetooth.heartRate != null ? `${bluetooth.heartRate} bpm` : "Reading…"}
+                </span>
+              </div>
+              <button className="bt-disconnect-btn" onClick={bluetooth.disconnect}>
+                Disconnect
+              </button>
+            </>
+          ) : (
+            <>
+              <p className="settings-desc">
+                Connect a Bluetooth smartwatch or fitness band to display live heart rate and health data.
+              </p>
+              {bluetooth.error && (
+                <p className="settings-desc" style={{ color: "#ff8888", fontSize: "12px" }}>
+                  ⚠ {bluetooth.error}
+                </p>
+              )}
+              <button
+                className="bt-connect-btn"
+                onClick={bluetooth.connect}
+                disabled={bluetooth.status === "scanning" || bluetooth.status === "connecting"}
+              >
+                {bluetooth.status === "scanning"   && "🔍 Scanning…"}
+                {bluetooth.status === "connecting" && "🔗 Connecting…"}
+                {(bluetooth.status === "idle" || bluetooth.status === "disconnected" || bluetooth.status === "error") && "🔵 Connect Smartwatch"}
+              </button>
+            </>
+          )}
+        </div>
+
+        {/* System Preferences Section — collapsed to save space */}
         <div className="settings-section">
           <h3 className="settings-section-title">{t("SYSTEM_PREFS")}</h3>
           <p className="settings-desc">{t("VOICE_DISPLAY")}</p>
