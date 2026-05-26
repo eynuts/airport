@@ -173,9 +173,8 @@ export default function Home() {
       if (!text.trim()) return;
       setIsThinking(true);
       try {
-        // Build live context so the AI knows current flight, nav & weather
+        // Build live context so the AI knows current flight & weather
         const { hours, minutes, period, formattedDate } = getPhilippineTime();
-        const flightInfo = getFlightDistance(selectedFlight);
 
         const fmt = (iso) =>
           iso
@@ -198,10 +197,6 @@ export default function Home() {
           context += `\nFlight status: ${selectedFlight.flight_status || "Scheduled"}`;
         } else {
           context += "\nNo flight selected yet.";
-        }
-
-        if (flightInfo) {
-          context += `\nNavigation: ${flightInfo.departure} → ${flightInfo.arrival}, distance: ${flightInfo.distance} KM, estimated flight time: ${flightInfo.hours > 0 ? `${flightInfo.hours}h ` : ""}${flightInfo.minutes}min.`;
         }
 
         if (weatherData) {
